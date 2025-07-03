@@ -52,37 +52,60 @@ function App() {
     fetchTodos();
   }, []);
 
+
+
   const addTodo = async (text, deadline) => {
-    const tempId = `temp-${Date.now()}`;
-    const optimisticTodo = {
-      id: tempId,
-      text,
-      completed: false,
-      deadline: deadline || null,
-      createdAt: new Date().toISOString(),
-      localOnly: true
-    };
-
-    setTodos(prev => [optimisticTodo, ...prev]);
-
-    try {
-      const docRef = await addDoc(collection(db, 'todos'), {
-        text: optimisticTodo.text,
-        completed: optimisticTodo.completed,
-        deadline: optimisticTodo.deadline,
-        createdAt: optimisticTodo.createdAt
-      });
-
-      setTodos(prev =>
-        prev.map(todo =>
-          todo.id === tempId ? { ...todo, id: docRef.id, localOnly: false } : todo
-        )
-      );
-    } catch (err) {
-      console.error('Error adding todo:', err);
-      setTodos(prev => prev.filter(todo => todo.id !== tempId));
-    }
+  const newTodo = {
+    text,
+    completed: false,
+    deadline: deadline || null,
+    createdAt: new Date().toISOString()
   };
+
+  try {
+    const docRef = await addDoc(collection(db, 'todos'), newTodo);
+    setTodos(prev => [{ id: docRef.id, ...newTodo }, ...prev]);
+  } catch (err) {
+    console.error('Error adding todo:', err);
+  }
+};
+
+
+// ✅ Optimistic Add (show todo first then store in Firebase) --> re-rendering issue occurs
+// const addTodo = async (text, deadline) => {
+//   const tempId = temp-${Date.now()};
+//   const optimisticTodo = {
+//     id: tempId,
+//     text,
+//     completed: false,
+//     deadline: deadline || null,
+//     createdAt: new Date().toISOString(),
+//     localOnly: true
+//   };
+
+//   setTodos(prev => [optimisticTodo, ...prev]);
+
+//   try {
+//     const docRef = await addDoc(collection(db, 'todos'), {
+//       text: optimisticTodo.text,
+//       completed: optimisticTodo.completed,
+//       deadline: optimisticTodo.deadline,
+//       createdAt: optimisticTodo.createdAt
+//     });
+
+//     setTodos(prev =>
+//       prev.map(todo =>
+//         todo.id === tempId
+//           ? { ...todo, id: docRef.id, localOnly: false }
+//           : todo
+//       )
+//     );
+//   } catch (err) {
+//     console.error('Error adding todo:', err);
+//     setTodos(prev => prev.filter(todo => todo.id !== tempId));
+//   }
+// };
+
 
   const editTodo = async (id, newText, newDeadline) => {
     const prevTodo = todos.find(t => t.id === id);
