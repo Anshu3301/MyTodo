@@ -61,4 +61,4 @@ The application will start, and you can access it by navigating to [http://local
 
 
 ### Demo:
-!()[./demo.mp4]
+[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/username/repository/branch/path/to/demo.mp4)
