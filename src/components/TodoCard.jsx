@@ -111,7 +111,7 @@ const TodoCard = ({ todo, onEdit, onDelete, onToggleComplete, gradientClass, isO
                         daysUntil <= 3 ? 'bg-orange-500 bg-opacity-80' :
                         'bg-green-500 bg-opacity-80'
                       }`}>
-                        {daysUntil < 0 ? `${Math.abs(daysUntil)} days overdue` :
+                        {daysUntil < 0 ? `${Math.abs(daysUntil)} day(s) overdue` :
                          daysUntil === 0 ? 'Due today' :
                          daysUntil === 1 ? 'Due tomorrow' :
                          `${daysUntil} days left`}
