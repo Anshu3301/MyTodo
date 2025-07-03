@@ -57,3 +57,8 @@ npm run dev
 ```
 
 The application will start, and you can access it by navigating to [http://localhost:5173](http://localhost:5173) (or as specified in your terminal output).
+
+
+
+### Demo:
+!()[./demo.mp4]
