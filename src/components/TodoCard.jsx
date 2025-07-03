@@ -120,9 +120,9 @@ const TodoCard = ({ todo, onEdit, onDelete, onToggleComplete, gradientClass, isO
                   </div>
                 )}
                 
-{/*                 <p className="text-sm text-white text-opacity-80 mt-3">
+                <p className="text-sm text-white text-opacity-80 mt-3">
                   Created: {new Date(todo.createdAt).toLocaleDateString()}
-                </p> */}
+                </p>
               </div>
             )}
           </div>
