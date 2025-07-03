@@ -65,9 +65,15 @@
   }
   
   .gradient-6 {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+     background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 100%);
   }
   
+  .gradient-7 {
+  background: linear-gradient(135deg, #0DB5B8 0%, #FCCC65 100%);
+  }
+
+
+
   .input-focus {
     @apply focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 focus:border-blue-500 transition-all duration-200;
   }

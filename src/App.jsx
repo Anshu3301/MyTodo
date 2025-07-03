@@ -14,13 +14,14 @@ const gradientClasses = [
   'gradient-3',
   'gradient-4',
   'gradient-5',
-  'gradient-6'
+  'gradient-6',
+  'gradient-7'
 ];
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
-  const [sortOrder, setSortOrder] = useState('none'); // none | asc | desc
+  const [sortOrder, setSortOrder] = useState('asc'); // none | asc | desc
 
   useEffect(() => {
     const fetchTodos = async () => {
