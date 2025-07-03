@@ -23,15 +23,23 @@ useEffect(() => {
   const fetchTodos = async () => {
     try {
       const snapshot = await getDocs(collection(db, 'todos'));
-      const todosList = snapshot.docs.map(doc => ({
+      const firebaseTodos = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
 
       setTodos(prev => {
-        const existingIds = new Set(prev.map(t => t.id));
-        const onlyRemote = todosList.filter(t => !existingIds.has(t.id));
-        return [...prev, ...onlyRemote];
+        const ids = new Set(prev.map(t => t.id));
+        const merged = [...prev];
+        firebaseTodos.forEach(fbTodo => {
+          const existingIndex = merged.findIndex(t => t.localOnly && t.text === fbTodo.text && t.createdAt === fbTodo.createdAt);
+          if (existingIndex !== -1) {
+            merged[existingIndex] = { ...fbTodo }; // replace
+          } else if (!ids.has(fbTodo.id)) {
+            merged.push(fbTodo); // add new
+          }
+        });
+        return merged;
       });
     } catch (err) {
       console.error('Error fetching todos:', err);
@@ -42,46 +50,58 @@ useEffect(() => {
 }, []);
 
 
-
-  // ✅ Optimistic Add
+// Normal (store in Firebase then show todo)
 const addTodo = async (text, deadline) => {
-  const tempId = `temp-${Date.now()}`;
-  const optimisticTodo = {
-    id: tempId,
+  const newTodo = {
     text,
     completed: false,
     deadline: deadline || null,
-    createdAt: new Date().toISOString(),
-    localOnly: true // 👈 this marks it as temporary
+    createdAt: new Date().toISOString()
   };
 
-  setTodos(prev => [optimisticTodo, ...prev]);
-
   try {
-    const docRef = await addDoc(collection(db, 'todos'), {
-      text: optimisticTodo.text,
-      completed: optimisticTodo.completed,
-      deadline: optimisticTodo.deadline,
-      createdAt: optimisticTodo.createdAt
-    });
-
-    const newTodo = {
-      id: docRef.id,
-      text: optimisticTodo.text,
-      completed: optimisticTodo.completed,
-      deadline: optimisticTodo.deadline,
-      createdAt: optimisticTodo.createdAt
-    };
-
-    // ✅ Replace temp with real one
-    setTodos(prev =>
-      [newTodo, ...prev.filter(todo => todo.id !== tempId)]
-    );
+    const docRef = await addDoc(collection(db, 'todos'), newTodo);
+    setTodos(prev => [{ id: docRef.id, ...newTodo }, ...prev]);
   } catch (err) {
     console.error('Error adding todo:', err);
-    setTodos(prev => prev.filter(todo => todo.id !== tempId)); // rollback
   }
 };
+
+// ✅ Optimistic Add (show todo first then store in Firebase)
+// const addTodo = async (text, deadline) => {
+//   const tempId = `temp-${Date.now()}`;
+//   const optimisticTodo = {
+//     id: tempId,
+//     text,
+//     completed: false,
+//     deadline: deadline || null,
+//     createdAt: new Date().toISOString(),
+//     localOnly: true
+//   };
+
+//   setTodos(prev => [optimisticTodo, ...prev]);
+
+//   try {
+//     const docRef = await addDoc(collection(db, 'todos'), {
+//       text: optimisticTodo.text,
+//       completed: optimisticTodo.completed,
+//       deadline: optimisticTodo.deadline,
+//       createdAt: optimisticTodo.createdAt
+//     });
+
+//     setTodos(prev =>
+//       prev.map(todo =>
+//         todo.id === tempId
+//           ? { ...todo, id: docRef.id, localOnly: false }
+//           : todo
+//       )
+//     );
+//   } catch (err) {
+//     console.error('Error adding todo:', err);
+//     setTodos(prev => prev.filter(todo => todo.id !== tempId));
+//   }
+// };
+
 
 
   // ✅ Optimistic Edit
