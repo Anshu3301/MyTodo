@@ -15,7 +15,6 @@ const gradientClasses = [
   'gradient-4',
   'gradient-5',
   'gradient-6',
-  'gradient-7'
 ];
 
 function App() {
