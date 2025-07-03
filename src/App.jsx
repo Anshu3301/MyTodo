@@ -195,7 +195,7 @@ function App() {
           <button onClick={() => setFilter('completed')} className={`${filter === 'completed' ? 'btn-primary' : 'btn-secondary'}`}>
             Completed ({todos.filter(t => t.completed).length})
           </button>
-          <button onClick={() => setFilter('overdue')} className={`${filter === 'overdue' ? 'btn-danger' : 'btn-secondary'} ${overdueTodos.length > 0 ? 'animate-pulse' : ''}`}>
+          <button onClick={() => setFilter('overdue')} className={`${filter === 'overdue' ? 'btn-danger' : 'btn-secondary'} ${overdueTodos.length > 0 ? 'animate-pulse bg-red-300' : ''}`}>
             Overdue ({overdueTodos.length})
           </button>
           {todos.some(t => t.completed) && (
