@@ -43,7 +43,7 @@ const TodoCard = ({ todo, onEdit, onDelete, onToggleComplete, gradientClass, isO
     const deadline = new Date(dateString);
     const today = new Date();
     const diffTime = deadline - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
 
