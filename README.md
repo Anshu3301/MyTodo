@@ -61,4 +61,4 @@ The application will start, and you can access it by navigating to [http://local
 
 
 ### Demo:
-![Watch the video](thumbnail.png)
+![](./thumbnail.png)
