@@ -168,7 +168,8 @@ function App() {
 
   const isOverdue = (todo) => {
     if (!todo.deadline || todo.completed) return false;
-    return new Date(todo.deadline) < new Date();
+    // 11:59 PM at Deadline - 00:00 AM at Today
+    return new Date(todo.deadline).setHours(23,59,59,999) < new Date().setHours(0,0,0,0);
   };
 
   let filteredTodos = todos.filter(todo => {

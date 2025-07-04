@@ -38,14 +38,22 @@ const TodoCard = ({ todo, onEdit, onDelete, onToggleComplete, gradientClass, isO
     });
   };
 
-  const getDaysUntilDeadline = (dateString) => {
-    if (!dateString) return null;
-    const deadline = new Date(dateString);
-    const today = new Date();
-    const diffTime = deadline - today;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
+const getDaysUntilDeadline = (dateString) => {
+  if (!dateString) return null;
+
+  //deadline to 11:59:59 PM of deadline date
+  const deadline = new Date(dateString);
+  deadline.setHours(23, 59, 59, 999);
+
+  // Set current time to today at 00:00:00
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const diffTime = deadline - today;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+
 
   const daysUntil = getDaysUntilDeadline(todo.deadline);
   const today = new Date().toISOString().split('T')[0];
