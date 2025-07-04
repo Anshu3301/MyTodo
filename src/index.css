@@ -45,11 +45,11 @@
   }
   
   .gradient-1 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8a28ed 0%, #738cfd 100%);
   }
   
   .gradient-2 {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #fd2946 0%, #e57cf1 100%);
   }
   
   .gradient-3 {
@@ -57,17 +57,24 @@
   }
   
   .gradient-4 {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    background: linear-gradient(135deg, #5da92f 0%, #9bd46a 100%);
   }
   
   .gradient-5 {
-    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    background: linear-gradient(135deg, #f55283 0%, #f3db54 100%);
   }
   
   .gradient-6 {
     background: linear-gradient(135deg, #833AB4 0%, #fd1d1d 100%);
   }
 
+  .gradient-7 {
+    background: linear-gradient(135deg, #296B8C 0%, #2CFAAF 100%);
+  }
+
+  .gradient-8 {
+    background: linear-gradient(135deg, #0d41e1 0%, #07c8f9 100%);
+  }
 
 
   .input-focus {
