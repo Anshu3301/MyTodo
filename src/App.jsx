@@ -215,10 +215,10 @@ function App() {
           <button onClick={() => setFilter('all')} className={`${filter === 'all' ? 'btn-primary' : 'btn-secondary'}`}>
             All Tasks ({todos.length})
           </button>
-          <button onClick={() => setFilter('pending')} className={`${filter === 'pending' ? 'btn-primary' : 'btn-secondary'}`}>
+          <button onClick={() => setFilter('pending')} className={`${filter === 'pending' ? 'btn-orange' : 'btn-secondary'}`}>
             Pending ({todos.filter(t => !t.completed).length})
           </button>
-          <button onClick={() => setFilter('completed')} className={`${filter === 'completed' ? 'btn-primary' : 'btn-secondary'}`}>
+          <button onClick={() => setFilter('completed')} className={`${filter === 'completed' ? 'btn-green' : 'btn-secondary'}`}>
             Completed ({todos.filter(t => t.completed).length})
           </button>
           <button onClick={() => setFilter('overdue')} className={`${filter === 'overdue' ? 'btn-danger' : 'btn-secondary'} ${overdueTodos.length > 0 ? 'animate-pulse bg-red-300' : ''}`}>
