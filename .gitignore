@@ -1,5 +1,5 @@
 .env
-.bolt/
+.bolt
 
 # Logs
 logs
